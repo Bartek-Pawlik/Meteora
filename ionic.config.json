@@ -1,0 +1,7 @@
+{
+  "name": "Meteora",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
