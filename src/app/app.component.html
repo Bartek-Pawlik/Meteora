@@ -1,14 +1,25 @@
 <div id="top"></div>
 <div class="top-bar">
   <div class="container">
-    <!-- BAR STUFF HERE TO-DO -->
+    <!-- TO-DO: Top bar stuff -->
+
+    <div class="logo">
+      <h1>Meteora</h1>
+    </div>
+    
+    <ion-item id="search">
+      <ion-input [(ngModel)]="CityInput" placeholder="Enter City"></ion-input>
+      <ion-button id="searchButton" (click)="searchCity()">Search</ion-button>
+    </ion-item>
   </div>
 </div>
 
-<ion-label>{{ Temperature }} Celsius</ion-label>
-<br>
-<ion-label> {{ City }}</ion-label>
-<br>
-<ion-label> {{ WindSpeed }} km/h</ion-label>
-<br>
-<ion-label>{{ Description[0].main }} conditions currently</ion-label>
+<div class="data">
+  <ion-label>{{ Temperature }} Celsius</ion-label>
+  <br>
+  <ion-label> {{ City }}</ion-label>
+  <br>
+  <ion-label> {{ WindSpeed }} km/h</ion-label>
+  <br>
+  <ion-label>{{ Description[0].main }} conditions currently</ion-label>
+</div>

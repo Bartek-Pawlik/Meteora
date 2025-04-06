@@ -22,16 +22,30 @@ export class AppComponent implements OnInit {
   Temperature: number = 0;
   WindSpeed: number = 0;
   Description: any = [];
+  CityInput: string = "";
      
   ngOnInit(): void {
-    this.weatherAPI.GetWeatherData().subscribe((weatherData) => 
-      {
-        this.City = weatherData.name;
-        this.Temperature = weatherData.main.temp
-        this.WindSpeed = Math.round(weatherData.wind.speed * 3.6);
-        this.Description = weatherData.weather;
+    this.getWeatherForCity('Galway'); //default city
+  }
+
+  //function to get the weather data for a city
+  getWeatherForCity(cityS: string): void {
+    this.weatherAPI.getWeatherDataByCity(cityS).subscribe((weatherData) => {
+      console.log(weatherData);
+      this.City = weatherData.name;
+      this.Temperature = weatherData.main.temp;
+      this.WindSpeed = Math.round(weatherData.wind.speed * 3.6);
+      this.Description = weatherData.weather;
     });
   }
-}
+
+  //function to get the weather data for the city searched
+  searchCity(): void {
+    if (this.CityInput.trim()) {
+      this.getWeatherForCity(this.CityInput.trim());
+    }
+  }
+  }
+
   
 
