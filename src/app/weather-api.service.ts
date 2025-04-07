@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 
-const SECRET_KEY : any = "581fd81ff5d1d33bb28ecb1145a5733a";
+const SECRET_KEY = environment.weatherApiKey;
 
 export class WeatherAPIService {
 
