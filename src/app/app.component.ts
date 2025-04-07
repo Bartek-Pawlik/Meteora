@@ -23,7 +23,8 @@ export class AppComponent implements OnInit {
   City: any = "";
   Temperature: number = 0;
   WindSpeed: any = [];
-  Description: any = [];
+  Description: any = "";
+  Condition: any = [];
   CityInput: string = "";
 
   //variables for geolocation plugin
@@ -80,8 +81,14 @@ export class AppComponent implements OnInit {
     this.weatherAPI.getWeatherDataByCity(lat, lon).subscribe((weatherData) => {
       console.log(weatherData);
       
+      //capitalise first letter
+      const desc = weatherData.current.weather[0].description;
+      this.Description = desc.charAt(0).toUpperCase() + desc.slice(1);
+
       this.WindSpeed = weatherData.current.wind_speed;
       this.Temperature = weatherData.current.temp;
+
+      
     });
   }
 

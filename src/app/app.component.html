@@ -1,12 +1,10 @@
+<div id="background">
 <div id="top"></div>
 <div class="top-bar">
   <div class="container">
-    <!-- TO-DO: Top bar stuff -->
-
     <div class="logo">
       <h1>Meteora</h1>
     </div>
-    
     <ion-item id="search">
       <ion-input [(ngModel)]="CityInput" placeholder="Enter City"></ion-input>
       <ion-button id="searchButton" (click)="searchCityWeather()">Search</ion-button>
@@ -14,12 +12,18 @@
   </div>
 </div>
 
-<div class="data">
-  <ion-label>{{ Temperature }} °C</ion-label>
-  <br>
-  <ion-label> {{ City }}</ion-label>
-  <br>
-  <ion-label> {{ WindSpeed }} km/h</ion-label>
-  <br>
-  <ion-label>{{ Description[0].main }} conditions currently</ion-label>
+<!-- main data -->
+<h2 id="city"> {{ City }}</h2>
+<div class="main-content">
+  <div class="weather-box">
+    <h2>{{ Temperature }}°C</h2>
+  </div>
+
+  <!-- other weather data -->
+  <div class="weather-data">
+    <p><strong>Overview:</strong> {{ Description }}</p>
+    <p><strong>To-do</strong> {{ Description[0]?.description }}</p>
+    <p><strong>Wind Speed:</strong> {{ WindSpeed }} km/h</p>
+  </div>
+</div>
 </div>

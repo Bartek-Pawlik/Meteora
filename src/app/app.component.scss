@@ -1,23 +1,31 @@
 /* COLOUR PALETTE
-#134074
-#13315c
-#0b2545
-#8da9c4
-#eef4ed
+03001C
+301E67
+5B8FB9
+B6EADA
 */
+
+#background {
+  background: linear-gradient(to bottom, #301E67, #5B8FB9);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  alighn-items: flex-start; 
+  justify-content: start;
+  padding-top: 1.5rem;
+}
 
 .top-bar {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  background-color: #0b2545;
+  background-color: #03001C;
   color: white;
   z-index: 1000;
   height: 80px;
   display: flex;
   align-items: center; 
-  justify-content: flex-end; 
   }
 
   .container {
@@ -25,7 +33,6 @@
   margin: 0 auto;
   padding: 0 15px;
   display: flex;
-  justify-content: flex-end; 
   align-items: center; 
   }
   
@@ -48,8 +55,58 @@
 
   .logo {
     font-family: 'Montserrat', sans-serif;
-    font-size: 100px;
-    font-weight: bold;
+    font-size: 2rem;
+    font-weight: bolder;
     margin-right: auto; 
     color: #eef4ed;
   }
+
+  #city {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.5rem;
+    font-weight: bolder;
+    margin-right: auto; 
+    color: black;
+    padding-left: 3rem;
+  }
+  
+  
+  .main-content {
+    display: flex;
+    flex-direction: column;   
+    align-items: flex-start;   
+    margin-top: 3rem;
+    padding-left: 3rem;         
+    gap: 1.5rem;
+
+    .weather-box {
+    background: #5B8FB9;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.4);
+    text-align: center;
+    min-width: 280px;
+
+  h2 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #000;
+  }
+    }
+  
+    .weather-data {
+      background: #5B8FB9;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.4);
+      text-align: left;
+      min-width: 280px;
+      color: #000;
+      p {
+        margin: 1rem 0;
+        font-size: 1.2rem;
+      }
+    }
+  }
+  
+  
