@@ -25,7 +25,8 @@
       <p>Condition: {{ Description }}</p>
       <p>Wind Speed: {{ WindSpeed }} km/h</p>
     </div>
-  </div>
+    <button (click)="addCityToFavorites()" class="favorite-button">Favorite City</button>
+  </div> 
 
   <div class="hourly-sidebar" *ngIf="hourlyForecast.length">
     <h3>Hourly Forecast</h3>
@@ -61,6 +62,15 @@
         <p>Ceiling: {{ detailedForecast.ceiling }}</p>
       </div>
     </div>
+  </div>
+  <div class="favorite-cities">
+    <h3>Favorite Cities</h3>
+    <ul>
+      <li *ngFor="let city of favoriteCities" (click)="selectCity(city)">
+        {{ city }}
+      </li>
+    </ul>
+  </div>
   </div>
 
 

@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { Geolocation } from '@capacitor/geolocation';
+import { Storage } from '@ionic/storage-angular';
 
 @Component({
   selector: 'app-root',
@@ -40,6 +41,9 @@ export class AppComponent implements OnInit {
     uv: 0,
   };
 
+  //TO-DO
+  favoriteCities: any = [];
+
   //variables for geolocation plugin
   lat: number = 0;
   lon: number = 0;
@@ -60,6 +64,25 @@ export class AppComponent implements OnInit {
     this.getGPS();
   }
 
+  //function to add city to favorites list
+  addCityToFavorites(): void {
+    if (!this.favoriteCities.includes(this.City)) {
+      this.favoriteCities.push(this.City);
+    }
+  }
+  
+  selectCity(city: string): void {
+    // Get coordinates for the selected city
+    this.weatherAPI.getCoordsFromCityName(city).subscribe((locationData) => {
+      if (locationData && locationData.length > 0) {
+        const lat = locationData[0].lat;
+        const lon = locationData[0].lon;
+    
+        this.City = locationData[0].name;
+        this.getWeatherForCity(lat, lon);
+      }
+    });
+  }
   //reverse geocoding api from openWeather to get city name from coords
   getCityName(lat: number, lon: number): void {
     this.weatherAPI.getCityNameFromCoords(lat, lon).subscribe((locationData) => {

@@ -171,7 +171,7 @@ B6EADA
   }
 
   .detailed-forecast {
-    width: 850px;
+    width: 900px;
     flex-shrink: 0;
     padding: 1rem 2rem;
     margin-top: 20px;
@@ -186,6 +186,7 @@ B6EADA
     align-items: center;
     margin-left: 12%;
     box-sizing: border-box;
+    font-weight: bold;
   }
   
   .detailed-forecast h3 {
@@ -199,7 +200,7 @@ B6EADA
   .forecast-details {
     display: flex;
     flex-wrap: wrap;
-    gap: 5px;
+    gap: 15px;
     justify-content: space-between;
     max-width: 850px;
   }
@@ -211,13 +212,64 @@ B6EADA
     text-align: center;
     font-size: 14px;
     color: #B6EADA;
-    width: 130px;
+    width: 170px;
     box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
   }
   
   .detail-card p {
     margin: 0.5rem 0;
   }
+
+  .favorite-button {
+    background-color: #5B8FB9;
+    color: white;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  
+    &:hover {
+      background-color: #301E67;
+    }
+  }
+  
+  .favorite-cities {
+    position: fixed;
+    top: 120px;
+    left: 90rem;
+    background: #000000;
+    opacity: 0.85;
+    padding: 1rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    color: white;
+    width: 300px;
+    z-index: 990;
+    
+    h3 {
+      text-align: center;
+      margin-bottom: 1rem;
+      color: #B6EADA;
+    }
+  
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+  
+    li {
+      padding: 0.5rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+  
+      &:hover {
+        background-color: #5B8FB9;
+      }
+    }
+  }
+  
   
   
   
