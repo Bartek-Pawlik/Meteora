@@ -26,6 +26,19 @@ export class AppComponent implements OnInit {
   Description: any = "";
   Condition: any = [];
   CityInput: string = "";
+  hourlyForecast: any = [];
+  feelsLike: any = "";
+
+  detailedForecast = {
+    sunrise: '',
+    sunset: '',
+    windSpeed: 0,
+    pressure: 0,
+    humidity: 0,
+    visibility: 0,
+    ceiling: '',
+    uv: 0,
+  };
 
   //variables for geolocation plugin
   lat: number = 0;
@@ -76,20 +89,57 @@ export class AppComponent implements OnInit {
     });
   }
 
+  //function to format time
+  formatTime(timestamp: number): string {
+    const date = new Date(timestamp * 1000); // convert seconds to milliseconds
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    return `${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
+  }
+
+
   //function to get the weather data for a city
-  getWeatherForCity(lat : number, lon : number): void {
+  getWeatherForCity(lat: number, lon: number): void {
     this.weatherAPI.getWeatherDataByCity(lat, lon).subscribe((weatherData) => {
       console.log(weatherData);
-      
-      //capitalise first letter
-      const desc = weatherData.current.weather[0].description;
-      this.Description = desc.charAt(0).toUpperCase() + desc.slice(1);
-
+  
+      this.Description = weatherData.current.weather[0].description.charAt(0).toUpperCase() +
+                         weatherData.current.weather[0].description.slice(1);
       this.WindSpeed = weatherData.current.wind_speed;
-      this.Temperature = weatherData.current.temp;
+      this.Temperature = Math.round(weatherData.current.temp);
+      this.feelsLike = Math.round(weatherData.current.feels_like);
+  
+      this.detailedForecast = {
+        sunrise: this.formatTime(weatherData.current.sunrise),
+        sunset: this.formatTime(weatherData.current.sunset),
+        windSpeed: weatherData.current.wind_speed,
+        pressure: weatherData.current.pressure,
+        humidity: weatherData.current.humidity,
+        visibility: weatherData.current.visibility / 1000, // convert to km
+        ceiling: weatherData.current.clouds,
+        uv: weatherData.current.uvi,
+      };
 
-      
+      // get first 8 hours of forecast
+      this.hourlyForecast = weatherData.hourly.slice(0, 8).map((h: any) => {
+        const date = new Date(h.dt * 1000);
+        const hour = date.getHours();
+        const time = `${hour % 12 || 12}${hour >= 12 ? 'pm' : 'am'}`;
+  
+        return {
+          time: time,
+          temp: Math.round(h.temp),
+          feels: Math.round(h.feels_like),
+          icon: h.weather[0].icon,
+          rain: h.pop ? Math.round(h.pop * 100) : 0 //chance of rain
+        };
+      });
     });
+  }
+  
+  //gets icon for weather condition
+  getIconUrl(icon: string): string {
+    return `https://openweathermap.org/img/wn/${icon}@2x.png`;
   }
 
   }
