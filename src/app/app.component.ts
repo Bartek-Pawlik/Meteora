@@ -18,7 +18,7 @@ import { Storage } from '@ionic/storage-angular';
 })
 export class AppComponent implements OnInit {
 
-  constructor(private weatherAPI : WeatherAPIService) {}
+  constructor(private weatherAPI : WeatherAPIService, private storage: Storage) {}
   //variables for weather info
   kelvin : number = 273.15;
   City: any = "";
@@ -41,7 +41,6 @@ export class AppComponent implements OnInit {
     uv: 0,
   };
 
-  //TO-DO
   favoriteCities: any = [];
 
   //variables for geolocation plugin
@@ -61,15 +60,33 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    //initialize storage
+    this.storage.create();
     this.getGPS();
+    this.loadFavoriteCities();
+  }
+
+  //function to save favorite cities to storage
+  async saveFavoriteCities(): Promise<void> {
+    await this.storage.set('favoriteCities', this.favoriteCities);
+  }
+
+  //function to load favorite cities from storage
+  async loadFavoriteCities(): Promise<void> {
+    const cities = await this.storage.get('favoriteCities');
+    if (cities) {
+      this.favoriteCities = cities;
+    }
   }
 
   //function to add city to favorites list
   addCityToFavorites(): void {
     if (!this.favoriteCities.includes(this.City)) {
       this.favoriteCities.push(this.City);
+      this.saveFavoriteCities();
     }
   }
+  
   
   selectCity(city: string): void {
     // Get coordinates for the selected city
