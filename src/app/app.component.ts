@@ -60,19 +60,18 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //initialize storage
     this.storage.create();
     this.getGPS();
     this.loadFavoriteCities();
   }
 
   //function to save favorite cities to storage
-  async saveFavoriteCities(): Promise<void> {
+  async saveFavoriteCities() {
     await this.storage.set('favoriteCities', this.favoriteCities);
   }
 
-  //function to load favorite cities from storage
-  async loadFavoriteCities(): Promise<void> {
+  //function to load cities
+  async loadFavoriteCities() {
     const cities = await this.storage.get('favoriteCities');
     if (cities) {
       this.favoriteCities = cities;
@@ -81,15 +80,14 @@ export class AppComponent implements OnInit {
 
   //function to add city to favorites list
   addCityToFavorites(): void {
-    if (!this.favoriteCities.includes(this.City)) {
+    if (!this.favoriteCities.includes(this.City)) { //check if already favourited
       this.favoriteCities.push(this.City);
       this.saveFavoriteCities();
     }
   }
   
-  
+  //function to get coords and weather for favourited city name
   selectCity(city: string): void {
-    // Get coordinates for the selected city
     this.weatherAPI.getCoordsFromCityName(city).subscribe((locationData) => {
       if (locationData && locationData.length > 0) {
         const lat = locationData[0].lat;
@@ -116,29 +114,22 @@ export class AppComponent implements OnInit {
         const lat = locationData[0].lat;
         const lon = locationData[0].lon;
   
-        this.lat = lat;
-        this.lon = lon;
         this.City = locationData[0].name;
-  
-        //get weather for city searched
         this.getWeatherForCity(lat, lon);
       } 
-      else {
-        console.log('City not found');
-      }
     });
   }
 
-  //function to format time
+  //function to format time for sunrise and sunset
   formatTime(timestamp: number): string {
-    const date = new Date(timestamp * 1000); // convert seconds to milliseconds
+    const date = new Date(timestamp * 1000); // convert to milliseconds
     const hours = date.getHours();
     const minutes = date.getMinutes();
-    return `${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
+    return `${hours}:${minutes < 10 ? '0' : ''}${minutes}`; //show as 2 digits
   }
 
 
-  //function to get the weather data for a city
+  //function to get the weather data for a city using coords
   getWeatherForCity(lat: number, lon: number): void {
     this.weatherAPI.getWeatherDataByCity(lat, lon).subscribe((weatherData) => {
       console.log(weatherData);
@@ -161,11 +152,12 @@ export class AppComponent implements OnInit {
       };
 
       // get first 8 hours of forecast
-      this.hourlyForecast = weatherData.hourly.slice(0, 8).map((h: any) => {
+      this.hourlyForecast = weatherData.hourly.slice(0, 8).map((h: any) => { 
         const date = new Date(h.dt * 1000);
         const hour = date.getHours();
-        const time = `${hour % 12 || 12}${hour >= 12 ? 'pm' : 'am'}`;
+        const time = `${hour % 12 || 12}${hour >= 12 ? 'pm' : 'am'}`; //assign am and pm
   
+        //return data for each hour
         return {
           time: time,
           temp: Math.round(h.temp),
@@ -177,12 +169,11 @@ export class AppComponent implements OnInit {
     });
   }
   
-  //gets icon for weather condition
+  //gets icon for hourly weather condition
   getIconUrl(icon: string): string {
     return `https://openweathermap.org/img/wn/${icon}@2x.png`;
   }
-
-  }
+}
 
   
 
