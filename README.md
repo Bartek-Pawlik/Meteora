@@ -9,7 +9,7 @@ Features:
 - Favouites: Save your favourite cities, for quick and easy access
 - PWA support: The app is designed to work as a PWA, allowing offline access and fast performance.
 
-
+Tech Stack: 
 - Frontend: Ionic, Angular
 - API: OpenWeatherMap One Call API 3.0, OpenWeatherMap Geocoding API
 - Storage: Ionic Storage for saving favourite cities
