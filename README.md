@@ -10,9 +10,9 @@ Features:
 - PWA support: The app is designed to work as a PWA, allowing offline access and fast performance.
 
 
-Frontend: Ionic, Angular
-API: OpenWeatherMap One Call API 3.0, OpenWeatherMap Geocoding API
-Storage: Ionic Storage for saving favourite cities
+- Frontend: Ionic, Angular
+- API: OpenWeatherMap One Call API 3.0, OpenWeatherMap Geocoding API
+- Storage: Ionic Storage for saving favourite cities
 
 Usage: 
 
