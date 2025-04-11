@@ -1,0 +1,76 @@
+<div id="background">
+  <div id="top"></div>
+  <div class="top-bar">
+    <div class="container">
+      <p class="logo">Meteora</p>
+    </div>
+  </div>
+
+  <ion-item id="search">
+    <ion-input [(ngModel)]="CityInput" placeholder="Enter City"></ion-input>
+    <ion-button id="searchButton" (click)="searchCityWeather()">Search</ion-button>
+  </ion-item>
+  
+  <!-- main data -->
+  <div class="main-wrapper">
+    <div class="main-content">
+      <div class="weather-box">
+        <h2>{{ Temperature }}°C</h2>
+        <p class="feels"> Feels like {{feelsLike}}°  </p>
+      </div>
+      <div class="weather-data">
+        <p>City: {{ City }}</p>
+        <p>Condition: {{ Description }}</p>
+        <p>Wind Speed: {{ WindSpeed }} km/h</p>
+      </div>
+      <button (click)="addCityToFavorites()" class="favorite-button">Favorite City</button>
+    </div> 
+  
+    <div class="hourly-sidebar" *ngIf="hourlyForecast.length">
+      <h3>Hourly Forecast</h3>
+      <div class="hourly-forecast">
+        <div class="hour-card" *ngFor="let hour of hourlyForecast">
+          <p class="time">{{ hour.time }}</p>
+          <img [src]="getIconUrl(hour.icon)" alt="icon" />
+          <p class="temp">{{ hour.temp }}°</p>
+          <p class="feels">Feels {{ hour.feels }}°</p>
+          <p class="rain">🌧 {{ hour.rain }}%</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+    <div class="detailed-forecast" *ngIf="detailedForecast">
+      <h3>Detailed Observations</h3>
+      <div class="forecast-details">
+        <div class="detail-card">
+          <p>Sunrise: {{ detailedForecast.sunrise }}</p>
+          <p>Sunset: {{ detailedForecast.sunset }}</p>
+        </div>
+        <div class="detail-card">
+          <p>Wind: {{ detailedForecast.windSpeed }} km/h</p>
+          <p>UV Index:  {{ detailedForecast.uv }}</p>
+        </div>
+        <div class="detail-card">
+          <p>Pressure: {{ detailedForecast.pressure }} hPa</p>
+          <p>Humidity: {{ detailedForecast.humidity }}%</p>
+        </div>
+        <div class="detail-card">
+          <p>Visibility: {{ detailedForecast.visibility }} km</p>
+          <p>Ceiling: {{ detailedForecast.ceiling }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="favorite-cities">
+      <h3>Favorite Cities</h3>
+      <ul>
+        <li *ngFor="let city of favoriteCities" (click)="selectCity(city)">
+          {{ city }}
+        </li>
+      </ul>
+    </div>
+    </div>
+  
+  
+  
+  
